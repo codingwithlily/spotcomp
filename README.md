@@ -1,1 +1,2 @@
 # spotcomp
+# github repo
