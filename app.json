@@ -1,0 +1,20 @@
+{
+  "name": "SpotComp",
+  "description": "SpotComp is a barebones Python app, which compares two images and can easily be deployed to Heroku.",
+  "image": "heroku/python",
+  "repository": "https://github.com/codingwithlily/spotcomp",
+  "keywords": ["python", "django"],
+  "env": {
+    "DJANGO_SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "./manage.py test --debug-mode"
+      }
+    }
+  }
+}
