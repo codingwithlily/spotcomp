@@ -4,13 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Comparison</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Image Comparison</h1>
-    <form action="/compare" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file1" accept="image/*"><br>
-        <input type="file" name="file2" accept="image/*"><br>
-        <button type="submit">Compare Images</button>
-    </form>
+    <div class="container">
+        <h1>Image Comparison</h1>
+        <form action="/compare" method="post" enctype="multipart/form-data">
+            <input type="file" name="file1" accept="image/*" required>
+            <br><br>
+            <input type="file" name="file2" accept="image/*" required>
+            <br><br>
+            <button type="submit">Compare Images</button>
+        </form>
+        <div class="result">
+            {% if result %}
+                {{ result }}
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
