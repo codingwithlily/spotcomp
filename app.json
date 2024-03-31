@@ -1,20 +1,29 @@
 {
-  "name": "SpotComp",
-  "description": "SpotComp is a barebones Python app, which compares two images and can easily be deployed to Heroku.",
-  "image": "heroku/python",
-  "repository": "https://github.com/codingwithlily/spotcomp",
-  "keywords": ["python", "django"],
+  "name": "image-comparison-app",
+  "description": "A simple Python web app for comparing images using OpenCV.",
+  "repository": "https://github.com/yourusername/your-repo",
+  "logo": "https://example.com/logo.png",
+  "keywords": ["python", "flask", "opencv"],
+  "addons": [],
+  "scripts": {
+    "postdeploy": "python setup.py"
+  },
   "env": {
-    "DJANGO_SECRET_KEY": {
-      "description": "The secret key for the Django application.",
-      "generator": "secret"
+    "FLASK_ENV": "production",
+    "PORT": {
+      "description": "Internal variable used by Heroku",
+      "value": "5000"
     }
   },
-  "environments": {
-    "test": {
-      "scripts": {
-        "test": "./manage.py test --debug-mode"
-      }
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
     }
-  }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
 }
