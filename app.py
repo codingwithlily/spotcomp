@@ -28,9 +28,9 @@ def compare_images():
 
     threshold = 0.9
     if similarity > threshold:
-        result = "Images are similar."
+        result = "Images appear to be similar."
     else:
-        result = "Images are different."
+        result = "Images are different. Please consult your doctor."
 
     return result
 

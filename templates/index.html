@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpotComp - Mole Image Comparison</title>
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
         }
@@ -19,11 +18,15 @@
             margin-top: 20px;
             font-weight: bold;
         }
+        .resultText {
+            border: double blue;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Image Comparison</h1>
+        <h1>SpotComp - Mole Image Comparison</h1>
         <form action="/compare" method="post" enctype="multipart/form-data">
             <input type="file" name="file1" accept="image/*" required>
             <br><br>
