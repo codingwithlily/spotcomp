@@ -1,12 +1,12 @@
 {
-  "name": "image-comparison-app",
+  "name": "spotcomp",
   "description": "A simple Python web app for comparing images using OpenCV.",
-  "repository": "https://github.com/yourusername/your-repo",
+  "repository": "https://github.com/codingwithlily/spotcomp",
   "logo": "https://example.com/logo.png",
   "keywords": ["python", "flask", "opencv"],
   "addons": [],
   "scripts": {
-    "postdeploy": "python setup.py"
+    "postdeploy": "python app.py"
   },
   "env": {
     "FLASK_ENV": "production",
