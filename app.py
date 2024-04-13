@@ -21,18 +21,19 @@ st.caption('by Lily Tsai')
 st.write(
     "Upload two images of the mole to compare."
 )
-uploaded_files = [None, None]
-
 # Upload first image
-uploaded_files[0] = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
+col1, col2 = st.columns(2)
+with col1:
+    uploaded_file1 = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
 
 # Upload second image
-uploaded_files[1] = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
+with col2:
+    uploaded_file2 = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
 
-if all(uploaded_files):
+if uploaded_file1 and uploaded_file2:
     # Read and display the uploaded images
-    image1 = Image.open(uploaded_files[0])
-    image2 = Image.open(uploaded_files[1])
+    image1 = Image.open(uploaded_file1)
+    image2 = Image.open(uploaded_file2)
 
     st.image([image1, image2], caption=['Image 1', 'Image 2'], width=300)
 
