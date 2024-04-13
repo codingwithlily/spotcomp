@@ -1,44 +1,47 @@
-from flask import Flask, render_template, request
-import cv2
+import streamlit as st
+from PIL import Image
 import numpy as np
-import os
+from skimage.metrics import structural_similarity as ssim
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+st.set_page_config(layout="wide", page_title="Spot Comp")
+#st.write("Spot Comp")
 
 
-@app.route('/compare', methods=['POST'])
-def compare_images():
-    if 'file1' not in request.files or 'file2' not in request.files:
-        return "Please upload two images.", 400
+# front end elements of the web page
+html_temp = """ 
+    <div style ="background-color:white;padding:13px"> 
+    <h1 style ="color:black;text-align:center;">Spot Comp</h1> 
+    </div> 
+    """
 
-    file1 = request.files['file1']
-    file2 = request.files['file2']
+# display the front end aspect
+st.markdown(html_temp, unsafe_allow_html = True)
+st.caption('by Lily Tsai')
 
-    img1 = cv2.imdecode(np.frombuffer(file1.read(), np.uint8), cv2.IMREAD_COLOR)
-    img2 = cv2.imdecode(np.frombuffer(file2.read(), np.uint8), cv2.IMREAD_COLOR)
+st.write(
+    "Upload two images of the mole to compare."
+)
+uploaded_files = st.file_uploader("Choose images...", type=['jpg', 'jpeg', 'png'], accept_multiple_files=True)
 
-    # Image comparison using OpenCV
-    hist1 = cv2.calcHist([img1], [0], None, [256], [0, 256])
-    hist2 = cv2.calcHist([img2], [0], None, [256], [0, 256])
-    similarity = cv2.compareHist(hist1, hist2, cv2.HISTCMP_CORREL)
+MAX_FILE_SIZE = 5 * 1024 * 1024
 
-    threshold = 0.9
-    if similarity > threshold:
-        result = "Images appear to be similar."
+if uploaded_files is not None and len(uploaded_files) == 2:
+    # Read and display the uploaded images
+    image1 = Image.open(uploaded_files[0])
+    image2 = Image.open(uploaded_files[1])
+
+    st.image([image1, image2], caption=['Image 1', 'Image 2'], width=300)
+
+    # convert images to numpy arrays for comparison
+    img1_array = np.array(image1)
+    img2_array = np.array(image2)
+
+    # calculate Structural Similarity Index (SSI)
+    similarity_index = ssim(img1_array, img2_array, multichannel=True)
+
+    st.write(f'Similarity Index: {similarity_index}')
+
+    if similarity_index < 0.9:
+        st.warning("There's a significant change in the mole. Please consult a dermatologist.")
     else:
-        result = "Images are different. Please consult your doctor."
-
-    return result
-
-
-
-if __name__ == '__main__':
-    #app.run(debug=True, use_reloader=True)
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
-
+        st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
