@@ -48,6 +48,11 @@ if uploaded_file1 and uploaded_file2:
     img1_array = np.array(image1)
     img2_array = np.array(image2)
 
+    # Calculate a valid window size for SSIM
+    win_size = min(7, min(min_height, min_width))
+    if win_size % 2 == 0:
+        win_size -= 1
+
     # Calculate Structural Similarity Index (SSI)
     similarity_index = ssim(img1_array, img2_array, multichannel=True)
 
