@@ -13,5 +13,5 @@ Pillow
 #Werkzeug
 #zipp==3.6.0
 streamlit
-scikit
+scikit-image
 
