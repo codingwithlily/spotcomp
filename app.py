@@ -21,23 +21,33 @@ st.caption('by Lily Tsai')
 st.write(
     "Upload two images of the mole to compare."
 )
-uploaded_files = st.file_uploader("Choose images...", type=['jpg', 'jpeg', 'png'], accept_multiple_files=True)
+uploaded_files = [None, None]
 
-MAX_FILE_SIZE = 5 * 1024 * 1024
+# Upload first image
+uploaded_files[0] = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
 
-if uploaded_files is not None and len(uploaded_files) == 2:
+# Upload second image
+uploaded_files[1] = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
+
+if all(uploaded_files):
     # Read and display the uploaded images
     image1 = Image.open(uploaded_files[0])
     image2 = Image.open(uploaded_files[1])
 
     st.image([image1, image2], caption=['Image 1', 'Image 2'], width=300)
 
-    # convert images to numpy arrays for comparison
+    # Convert images to numpy arrays for comparison
     img1_array = np.array(image1)
     img2_array = np.array(image2)
 
-    # calculate Structural Similarity Index (SSI)
-    similarity_index = ssim(img1_array, img2_array, multichannel=True)
+    # Ensure the images have the same shape
+    min_height = min(img1_array.shape[0], img2_array.shape[0])
+    min_width = min(img1_array.shape[1], img2_array.shape[1])
+    img1_array = img1_array[:min_height, :min_width, :]
+    img2_array = img2_array[:min_height, :min_width, :]
+
+    # Calculate Structural Similarity Index (SSI) with a window size of 7
+    similarity_index = ssim(img1_array, img2_array, win_size=7, multichannel=True)
 
     st.write(f'Similarity Index: {similarity_index}')
 
