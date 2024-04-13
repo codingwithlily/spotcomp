@@ -5,11 +5,13 @@
 #Jinja2
 #MarkupSafe==2.0.1
 numpy
-opencv-python
+#opencv-python
 #packaging==21.3
 Pillow
-pyparsing
+#pyparsing
 #typing_extensions==4.1.1
 #Werkzeug
 #zipp==3.6.0
+streamlit
+scikit
 
