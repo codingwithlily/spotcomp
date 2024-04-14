@@ -25,21 +25,21 @@ st.write("Upload two images of the mole to compare.")
 
 # Upload first image
 col1, col2 = st.columns(2)
-
+result = st.empty()
 with col1:
     uploaded_file1 = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
     if uploaded_file1 is not None:
         image1 = Image.open(uploaded_file1)
-        st.image(image1, caption='Image 1', width=300)
+        result.image(image1, caption='Image 1', width=300)
 
 # Upload second image
 with col2:
     uploaded_file2 = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
     if uploaded_file2 is not None:
         image2 = Image.open(uploaded_file2)
-        st.image(image2, caption='Image 2', width=300)
+        result.image(image2, caption='Image 2', width=300)
 
-result = st.empty()
+
 with result:
     if uploaded_file1 and uploaded_file2:
         # Resize to the same size
@@ -66,9 +66,9 @@ with result:
             st.write(f'Similarity Index: {similarity_index}')
 
             if similarity_index < 0.9:
-                st.warning("There's a significant change in the mole. Please consult a dermatologist.")
+                result.warning("There's a significant change in the mole. Please consult a dermatologist.")
             else:
-                st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
+                result.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
             if st.button("Compare another", type="primary"):
                 result.empty()
