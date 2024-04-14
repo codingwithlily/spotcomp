@@ -50,7 +50,7 @@ if uploaded_file1 and uploaded_file2:
     image2_gray = rgb2gray(np.array(image2))
 
     # Check if "Compare" button is clicked
-    if st.button("Compare"):
+    if st.button("Compare", key="compare_button", width=400, help="Click to compare the images"):
         # Calculate a valid window size for SSIM
         win_size = min(7, min(min_height, min_width))
         if win_size % 2 == 0:
