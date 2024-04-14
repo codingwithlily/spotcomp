@@ -50,7 +50,7 @@ if uploaded_file1 and uploaded_file2:
     image2_gray = rgb2gray(np.array(image2))
 
     # Check if "Compare" button is clicked
-    if st.button("Compare", key="compare_button", width=400, help="Click to compare the images"):
+    if st.button("Compare", help="Click to compare images."):
         # Calculate a valid window size for SSIM
         win_size = min(7, min(min_height, min_width))
         if win_size % 2 == 0:
@@ -65,3 +65,14 @@ if uploaded_file1 and uploaded_file2:
             st.warning("There's a significant change in the mole. Please consult a dermatologist.")
         else:
             st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
+
+
+# Center the button horizontally
+st.markdown("""
+    <style>
+    .css-2trqyj.buJgXb {
+        display: flex;
+        justify-content: center;
+    }
+    </style>
+""", unsafe_allow_html=True)
