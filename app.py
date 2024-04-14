@@ -39,42 +39,39 @@ with col2:
         image2 = Image.open(uploaded_file2)
         st.image(image2, caption='Image 2', width=300)
 
+result = st.empty()
+with result:
+    if uploaded_file1 and uploaded_file2:
+        # Resize to the same size
+        min_width = min(image1.width, image2.width)
+        min_height = min(image1.height, image2.height)
+        image1 = image1.resize((min_width, min_height))
+        image2 = image2.resize((min_width, min_height))
 
-if uploaded_file1 and uploaded_file2:
-    # Resize to the same size
-    min_width = min(image1.width, image2.width)
-    min_height = min(image1.height, image2.height)
-    image1 = image1.resize((min_width, min_height))
-    image2 = image2.resize((min_width, min_height))
-
-    # Convert to grayscale
-    image1_gray = rgb2gray(np.array(image1))
-    image2_gray = rgb2gray(np.array(image2))
+        # Convert to grayscale
+        image1_gray = rgb2gray(np.array(image1))
+        image2_gray = rgb2gray(np.array(image2))
 
 
-    # Check if "Compare" button is clicked
-    if st.button("Compare", help="Click to compare images."):
-        # Calculate a valid window size for SSIM
-        win_size = min(7, min(min_height, min_width))
-        if win_size % 2 == 0:
-            win_size -= 1
+        # Check if "Compare" button is clicked
+        if st.button("Compare", help="Click to compare images."):
+            # Calculate a valid window size for SSIM
+            win_size = min(7, min(min_height, min_width))
+            if win_size % 2 == 0:
+                win_size -= 1
 
-        # Calculate Structural Similarity Index (SSI) with the valid window size
-        similarity_index = ssim(image1_gray, image2_gray, win_size=win_size, data_range=1)
+            # Calculate Structural Similarity Index (SSI) with the valid window size
+            similarity_index = ssim(image1_gray, image2_gray, win_size=win_size, data_range=1)
 
-        st.write(f'Similarity Index: {similarity_index}')
+            st.write(f'Similarity Index: {similarity_index}')
 
-        if similarity_index < 0.9:
-            st.warning("There's a significant change in the mole. Please consult a dermatologist.")
-        else:
-            st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
+            if similarity_index < 0.9:
+                st.warning("There's a significant change in the mole. Please consult a dermatologist.")
+            else:
+                st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
-        if st.button("Compare another", type="primary"):
-            # Clear uploaded files
-            uploaded_file1 = None
-            uploaded_file2 = None
-            # Clear uploaded images from the UI
-            st.write("")
+            if st.button("Compare another", type="primary"):
+                result.empty()
 
 
 
