@@ -26,9 +26,8 @@ if st.button("Reset", type="primary"):
     uploaded_file1 = None
     uploaded_file2 = None
     # Clear uploaded images from the UI
-    st.image("", caption='Image 1', width=0)
-    st.image("", caption='Image 2', width=0)
     st.write(" ")
+    st.experimental_rerun()
 
 # Upload first image
 col1, col2 = st.columns(2)
