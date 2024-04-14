@@ -39,13 +39,13 @@ with col2:
         st.image(image2, caption='Image 2', width=300)
 
 if uploaded_file1 and uploaded_file2:
-    # Resize images to the same size
+    # Resize to the same size
     min_width = min(image1.width, image2.width)
     min_height = min(image1.height, image2.height)
     image1 = image1.resize((min_width, min_height))
     image2 = image2.resize((min_width, min_height))
 
-    # Convert images to grayscale
+    # Convert to grayscale
     image1_gray = rgb2gray(np.array(image1))
     image2_gray = rgb2gray(np.array(image2))
 
@@ -67,7 +67,19 @@ if uploaded_file1 and uploaded_file2:
             st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
 
-# Center the button horizontally
+        # for spacing
+        st.write("")
+
+        # Add "Compare another" button to refresh the page
+        if st.button("Compare another", help="Click to compare another set of images"):
+            # Clear the uploaded files
+            uploaded_file1 = None
+            uploaded_file2 = None
+            # Clear the uploaded images
+            st.write("")
+            st.write("")
+
+# Center the buttons horizontally
 st.markdown("""
     <style>
     .css-2trqyj.buJgXb {
