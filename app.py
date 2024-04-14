@@ -38,6 +38,9 @@ with col2:
         image2 = Image.open(uploaded_file2)
         st.image(image2, caption='Image 2', width=300)
 
+if st.button("Reset", type="primary"):
+    st.write(" ")
+
 if uploaded_file1 and uploaded_file2:
     # Resize to the same size
     min_width = min(image1.width, image2.width)
@@ -49,8 +52,7 @@ if uploaded_file1 and uploaded_file2:
     image1_gray = rgb2gray(np.array(image1))
     image2_gray = rgb2gray(np.array(image2))
 
-    if st.button("Reset", type="primary"):
-        st.write(" ")
+
 
 
     # Check if "Compare" button is clicked
