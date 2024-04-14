@@ -49,6 +49,10 @@ if uploaded_file1 and uploaded_file2:
     image1_gray = rgb2gray(np.array(image1))
     image2_gray = rgb2gray(np.array(image2))
 
+    if st.button("Reset", type="primary"):
+        st.write(" ")
+
+
     # Check if "Compare" button is clicked
     if st.button("Compare", help="Click to compare images."):
         # Calculate a valid window size for SSIM
@@ -76,8 +80,8 @@ if uploaded_file1 and uploaded_file2:
             uploaded_file1 = None
             uploaded_file2 = None
             # Clear the uploaded images
-            st.write("")
-            st.write("")
+            st.image(image1, caption='Image 1', width=300)
+            st.image(image2, caption='Image 2', width=300)
 
 # Center the buttons horizontally
 st.markdown("""
