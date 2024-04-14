@@ -4,27 +4,31 @@ import numpy as np
 from skimage.metrics import structural_similarity as ssim
 from skimage.color import rgb2gray
 
-st.set_page_config(layout="wide", page_title="Spot Comp")
+st.set_page_config(layout="wide", page_title="SpotComp")
 #st.write("Spot Comp")
 
 
 # front end elements of the web page
 html_temp = """ 
     <div style ="background-color:white;padding:13px"> 
-    <h1 style ="color:black;text-align:center;">Spot Comp</h1> 
+    <h1 style ="color:black;text-align:center;">SpotComp</h1> 
     </div> 
     """
 
 # display the front end aspect
-st.markdown(html_temp, unsafe_allow_html = True)
+st.markdown(html_temp, unsafe_allow_html=True)
 st.caption('by Lily Tsai')
 
-st.write(
-    "Upload two images of the mole to compare."
-)
+st.write("Upload two images of the mole to compare.")
 
 if st.button("Reset", type="primary"):
     st.write(" ")
+    # Clear uploaded files
+    uploaded_file1 = None
+    uploaded_file2 = None
+    # Clear uploaded images from the UI
+    st.image("", caption='Image 1', width=300)
+    st.image("", caption='Image 2', width=300)
 
 # Upload first image
 col1, col2 = st.columns(2)
@@ -42,7 +46,6 @@ with col2:
         st.image(image2, caption='Image 2', width=300)
 
 
-
 if uploaded_file1 and uploaded_file2:
     # Resize to the same size
     min_width = min(image1.width, image2.width)
@@ -53,8 +56,6 @@ if uploaded_file1 and uploaded_file2:
     # Convert to grayscale
     image1_gray = rgb2gray(np.array(image1))
     image2_gray = rgb2gray(np.array(image2))
-
-
 
 
     # Check if "Compare" button is clicked
