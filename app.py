@@ -23,6 +23,9 @@ st.write(
     "Upload two images of the mole to compare."
 )
 
+if st.button("Reset", type="primary"):
+    st.write(" ")
+
 # Upload first image
 col1, col2 = st.columns(2)
 with col1:
@@ -38,8 +41,7 @@ with col2:
         image2 = Image.open(uploaded_file2)
         st.image(image2, caption='Image 2', width=300)
 
-if st.button("Reset", type="primary"):
-    st.write(" ")
+
 
 if uploaded_file1 and uploaded_file2:
     # Resize to the same size
