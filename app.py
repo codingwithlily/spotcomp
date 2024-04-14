@@ -25,23 +25,19 @@ st.write("Upload two images of the mole to compare.")
 
 # Upload first image
 col1, col2 = st.columns(2)
-file1 = st.empty()
-file2 = st.empty()
 
 with col1:
     uploaded_file1 = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
-    with file1.container():
-        if uploaded_file1 is not None:
-            image1 = Image.open(uploaded_file1)
-            st.image(image1, caption='Image 1', width=300)
+    if uploaded_file1 is not None:
+        image1 = Image.open(uploaded_file1)
+        st.image(image1, caption='Image 1', width=300)
 
 # Upload second image
 with col2:
     uploaded_file2 = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
-    with file2.container():
-        if uploaded_file2 is not None:
-            image2 = Image.open(uploaded_file2)
-            st.image(image2, caption='Image 2', width=300)
+    if uploaded_file2 is not None:
+        image2 = Image.open(uploaded_file2)
+        st.image(image2, caption='Image 2', width=300)
 
 
 if uploaded_file1 and uploaded_file2:
@@ -73,14 +69,14 @@ if uploaded_file1 and uploaded_file2:
         else:
             st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
+        if st.button("Compare another", type="primary"):
+            # Clear uploaded files
+            uploaded_file1 = None
+            uploaded_file2 = None
+            # Clear uploaded images from the UI
+            st.write("")
 
-if st.button("Compare another", type="primary"):
-    # Clear uploaded files
-    uploaded_file1 = None
-    uploaded_file2 = None
-    # Clear uploaded images from the UI
-    file1.empty()
-    file2.empty()
-    st.write("")
+
+
 
 
