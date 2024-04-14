@@ -2,6 +2,7 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 from skimage.metrics import structural_similarity as ssim
+from skimage.color import rgb2gray
 
 st.set_page_config(layout="wide", page_title="Spot Comp")
 #st.write("Spot Comp")
@@ -44,21 +45,23 @@ if uploaded_file1 and uploaded_file2:
     image1 = image1.resize((min_width, min_height))
     image2 = image2.resize((min_width, min_height))
 
-    # Convert images to numpy arrays for comparison
-    img1_array = np.array(image1)
-    img2_array = np.array(image2)
+    # Convert images to grayscale
+    image1_gray = rgb2gray(np.array(image1))
+    image2_gray = rgb2gray(np.array(image2))
 
-    # Calculate a valid window size for SSIM
-    win_size = min(7, min(min_height, min_width))
-    if win_size % 2 == 0:
-        win_size -= 1
+    # Check if "Compare" button is clicked
+    if st.button("Compare"):
+        # Calculate a valid window size for SSIM
+        win_size = min(7, min(min_height, min_width))
+        if win_size % 2 == 0:
+            win_size -= 1
 
-    # Calculate Structural Similarity Index (SSI)
-    similarity_index = ssim(img1_array, img2_array, multichannel=True)
+        # Calculate Structural Similarity Index (SSI) with the valid window size
+        similarity_index = ssim(image1_gray, image2_gray, win_size=win_size)
 
-    st.write(f'Similarity Index: {similarity_index}')
+        st.write(f'Similarity Index: {similarity_index}')
 
-    if similarity_index < 0.9:
-        st.warning("There's a significant change in the mole. Please consult a dermatologist.")
-    else:
-        st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
+        if similarity_index < 0.9:
+            st.warning("There's a significant change in the mole. Please consult a dermatologist.")
+        else:
+            st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
