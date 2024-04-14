@@ -25,7 +25,8 @@ st.write("Upload two images of the mole to compare.")
 
 # Upload first image
 col1, col2 = st.columns(2)
-file1, file2 = st.empty()
+file1 = st.empty()
+file2 = st.empty()
 
 with col1:
     uploaded_file1 = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
