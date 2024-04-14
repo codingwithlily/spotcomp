@@ -22,13 +22,13 @@ st.caption('by Lily Tsai')
 st.write("Upload two images of the mole to compare.")
 
 if st.button("Reset", type="primary"):
-    st.write(" ")
     # Clear uploaded files
     uploaded_file1 = None
     uploaded_file2 = None
     # Clear uploaded images from the UI
-    st.image("", caption='Image 1', width=300)
-    st.image("", caption='Image 2', width=300)
+    st.image("", caption='Image 1', width=0)
+    st.image("", caption='Image 2', width=0)
+    st.write(" ")
 
 # Upload first image
 col1, col2 = st.columns(2)
@@ -76,24 +76,6 @@ if uploaded_file1 and uploaded_file2:
             st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
 
-        # for spacing
-        st.write("")
 
-        # Add "Compare another" button to refresh the page
-        if st.button("Compare another", help="Click to compare another set of images"):
-            # Clear the uploaded files
-            uploaded_file1 = None
-            uploaded_file2 = None
-            # Clear the uploaded images
-            st.image(image1, caption='Image 1', width=300)
-            st.image(image2, caption='Image 2', width=300)
 
-# Center the buttons horizontally
-st.markdown("""
-    <style>
-    .css-2trqyj.buJgXb {
-        display: flex;
-        justify-content: center;
-    }
-    </style>
-""", unsafe_allow_html=True)
+
