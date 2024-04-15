@@ -9,40 +9,36 @@ st.set_page_config(layout="wide", page_title="SpotComp")
 
 
 # front end elements of the web page
-html_temp = """ 
-    <div style ="background-color:white;padding:13px"> 
-    <h1 style ="color:black;text-align:center;">SpotComp</h1> 
-    </div> 
+html_temp = """
+    <div style ="background-color:white;">
+    <h1 style ="color:black;text-align:center;">SpotComp</h1>
+    </div>
     """
 
 # display the front end aspect
 st.markdown(html_temp, unsafe_allow_html=True)
-st.caption('by Lily Tsai')
+#st.caption('by Lily Tsai')
 
 st.write("Upload two images of the mole to compare.")
-
 
 
 col1, col2 = st.columns(2)
 # First image
 with col1:
-    uploaded_file1 = st.file_uploader("Upload first image...", type=['jpg', 'jpeg', 'png'])
+    uploaded_file1 = st.file_uploader("Upload first image:", type=['jpg', 'jpeg', 'png'])
     if uploaded_file1 is not None:
         image1 = Image.open(uploaded_file1)
         st.image(image1, caption='Image 1', width=300)
 
 # Second image
 with col2:
-    uploaded_file2 = st.file_uploader("Upload second image...", type=['jpg', 'jpeg', 'png'])
+    uploaded_file2 = st.file_uploader("Upload second image:", type=['jpg', 'jpeg', 'png'])
     if uploaded_file2 is not None:
         image2 = Image.open(uploaded_file2)
         st.image(image2, caption='Image 2', width=300)
 
 # If both images are uploaded
 if uploaded_file1 and uploaded_file2:
-    # Add a line break for spacing
-    st.write("")
-
     # Resize images to the same size
     min_width = min(image1.width, image2.width)
     min_height = min(image1.height, image2.height)
@@ -52,7 +48,7 @@ if uploaded_file1 and uploaded_file2:
     # Convert images to grayscale
     image1_gray = rgb2gray(np.array(image1))
     image2_gray = rgb2gray(np.array(image2))
-
+    st.write("---")
     # If "Compare" button is clicked
     if st.button("Compare", key="compare_button", help="Click to compare the images"):
         # Calculate a valid window size for SSIM
@@ -70,25 +66,12 @@ if uploaded_file1 and uploaded_file2:
         else:
             st.success("There's no significant change in the mole. However, regular check-ups are recommended.")
 
-        # line break for spacing
-        st.write("")
 
-        # Add "Compare another" button to refresh the page
-        if st.button("Compare another", help="Click to compare another set of images"):
-            # Clear the uploaded files to allow the user to upload new images
-            uploaded_file1 = None
-            uploaded_file2 = None
-            # Clear the uploaded images from the UI
-            st.image("", caption='Image 1', width=300)
-            st.image("", caption='Image 2', width=300)
 
-# Button to clear images and selections
-if st.button("Clear Images", help="Click to clear uploaded images and selections"):
-    # Clear uploaded files
-    uploaded_file1 = None
-    uploaded_file2 = None
-    # Clear uploaded images from the UI
-    st.image("", caption='Image 1', width=300)
-    st.image("", caption='Image 2', width=300)
+
+
+
+
+
 
 
