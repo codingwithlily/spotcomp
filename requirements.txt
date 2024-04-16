@@ -1,17 +1,5 @@
-#Flask
-#gunicorn
-#importlib-metadata
-#itsdangerous
-#Jinja2
-#MarkupSafe==2.0.1
 numpy
-#opencv-python
-#packaging==21.3
 Pillow
-#pyparsing
-#typing_extensions==4.1.1
-#Werkzeug
-#zipp==3.6.0
 streamlit
 scikit-image
 
